@@ -1,8 +1,9 @@
 # this allows us to use code from
 # the open-source pygame library
 # throughout this file
-import pygame
+import pygame # type: ignore
 from constants import *
+from player import Player
 
 def main():
     pygame.init()
@@ -17,6 +18,7 @@ def main():
     # Set up the game clock
     game_clock = pygame.time.Clock()
 
+    # delta time
     dt = 0
 
     while True:
@@ -26,14 +28,18 @@ def main():
                 return
 
         # redraw screen    
-        game_screen.fill((80, 80, 80))
+        game_screen.fill((20, 20, 20))
+
+        # Draw player
+        game_player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, PLAYER_RADIUS)
+        game_player.draw(game_screen)
+        game_player.update(dt)
 
         # Flip the display to render the updated screen
         pygame.display.flip()
 
         # Delta adjust to 60fps
         dt = game_clock.tick(60) / 1000
-        print(dt)
 
 if __name__ == "__main__":
     main()
