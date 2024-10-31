@@ -7,41 +7,35 @@ from player import Player
 
 def main():
     pygame.init()
-    
-    print("Starting asteroids!")
-    print(f"Screen width: {SCREEN_WIDTH}")
-    print(f"Screen height: {SCREEN_HEIGHT}")
+    clock = pygame.time.Clock()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-    # Set up the main game screen
-    game_screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    updatables = pygame.sprite.Group()
+    drawables = pygame.sprite.Group()
 
-    # Set up the game clock
-    game_clock = pygame.time.Clock()
+    Player.containers = (updatables, drawables)
 
-    # delta time
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, PLAYER_RADIUS)
+
     dt = 0
 
-    # Draw player
-    game_player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, PLAYER_RADIUS)
-
-
     while True:
-        # Allow user to close game on close button on title bar
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+        
+        for obj in updatables:
+            obj.update(dt)
 
-        # redraw screen    
-        game_screen.fill((20, 20, 20))
+        screen.fill((20, 20, 20))
 
-        game_player.update(dt)
-        game_player.draw(game_screen)
+        for obj in drawables:
+            obj.draw(screen)
 
-        # Flip the display to render the updated screen
         pygame.display.flip()
 
         # Delta adjust to 60fps
-        dt = game_clock.tick(60) / 1000
+        dt = clock.tick(60) / 1000
 
 if __name__ == "__main__":
     main()
