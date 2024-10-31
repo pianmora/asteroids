@@ -21,6 +21,10 @@ def main():
     # delta time
     dt = 0
 
+    # Draw player
+    game_player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, PLAYER_RADIUS)
+
+
     while True:
         # Allow user to close game on close button on title bar
         for event in pygame.event.get():
@@ -30,10 +34,8 @@ def main():
         # redraw screen    
         game_screen.fill((20, 20, 20))
 
-        # Draw player
-        game_player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, PLAYER_RADIUS)
-        game_player.draw(game_screen)
         game_player.update(dt)
+        game_player.draw(game_screen)
 
         # Flip the display to render the updated screen
         pygame.display.flip()
