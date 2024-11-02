@@ -1,5 +1,5 @@
 import sys
-import pygame
+import pygame #type:ignore
 from constants import *
 from player import Player
 from asteroid import Asteroid
